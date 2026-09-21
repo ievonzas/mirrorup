@@ -1,0 +1,16 @@
+{
+  "name": "Mirror Up",
+  "short_name": "Mirror Up",
+  "description": "Live view and remote control for a Nikon DSLR over a USB OTG cable.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#ffc2dc",
+  "theme_color": "#ffc2dc",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

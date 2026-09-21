@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Mirror Up</title>
+  <meta name="description" content="Live view and remote control for a Nikon DSLR over a USB OTG cable.">
+  <meta name="theme-color" content="#ffc2dc">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app" data-state="splash">
+
+    <main class="stage" id="stage">
+      <div class="frame" id="frame" hidden>
+        <canvas id="view" width="640" height="424"></canvas>
+        <div class="grid" id="grid" hidden></div>
+        <div class="af-mark" id="afMark" hidden></div>
+        <div class="paused" id="pausedNote" hidden>Live view paused</div>
+      </div>
+
+      <section class="splash" id="splash">
+        <img class="splash-ico" src="icons/camera.svg" alt="" width="128" height="128">
+        <h1>Mirror Up</h1>
+        <p class="tagline">live view for an oldie baby camera <img src="icons/heart.svg" alt="" width="14" height="14"></p>
+        <ol class="steps">
+          <li>Turn the camera on and plug it into the phone with the OTG cable.</li>
+          <li>If Android asks which app to open, dismiss it.</li>
+          <li>Tap connect and pick the camera from the list.</li>
+        </ol>
+        <button class="btn-primary" id="connectBtn">Connect camera</button>
+        <p class="splash-status" id="splashStatus" role="status"></p>
+      </section>
+
+      <div class="hud" id="hud" hidden>
+        <span class="badge" id="hudMode" title="Exposure mode, set on the camera's dial">–</span>
+        <span class="hud-item" id="hudBattery"></span>
+        <span class="hud-item" id="hudFps"></span>
+        <span class="hud-spacer"></span>
+        <button class="hud-btn" id="gridBtn" aria-pressed="false" title="Rule of thirds grid">Grid</button>
+        <button class="hud-btn" id="peakBtn" aria-pressed="false" title="Focus peaking">Peak</button>
+        <button class="hud-btn" id="liveBtn" aria-pressed="true" title="Pause live view to save battery">Live</button>
+        <button class="hud-btn" id="settingsBtn" title="All camera settings">Menu</button>
+      </div>
+    </main>
+
+    <section class="panel" id="panel" hidden>
+      <div class="chips" id="chips"></div>
+      <div class="picker" id="picker" hidden></div>
+
+      <div class="actions">
+        <div class="focus-pad" role="group" aria-label="Focus">
+          <button class="pad-btn" data-mf="-large" aria-label="Focus nearer, big step">«</button>
+          <button class="pad-btn" data-mf="-small" aria-label="Focus nearer, small step">‹</button>
+          <button class="pad-btn pad-af" id="afBtn">AF</button>
+          <button class="pad-btn" data-mf="+small" aria-label="Focus farther, small step">›</button>
+          <button class="pad-btn" data-mf="+large" aria-label="Focus farther, big step">»</button>
+        </div>
+        <button class="shutter" id="shutterBtn" aria-label="Take photo"><img src="icons/heart.svg" alt="" width="36" height="36"></button>
+        <button class="last-shot" id="lastShotBtn" aria-label="Review last photo" disabled></button>
+      </div>
+    </section>
+  </div>
+
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-head">
+      <h2>Settings</h2>
+      <button class="hud-btn" id="sheetClose">Done</button>
+    </div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+
+  <div class="review" id="review" hidden>
+    <img id="reviewImg" alt="Last photo">
+    <p class="review-name" id="reviewName"></p>
+    <div class="review-actions">
+      <button class="btn-primary" id="saveBtn">Save to phone</button>
+      <button class="btn-ghost" id="shareBtn" hidden>Share</button>
+      <button class="btn-ghost" id="reviewClose">Back</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
