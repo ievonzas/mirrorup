@@ -88,8 +88,7 @@ button:disabled { opacity: .45; cursor: default; }
   position: relative;
   min-width: 0;
   min-height: 0;
-  display: grid;
-  place-items: center;
+  display: flex; flex-direction: column; align-items: center;
   overflow: hidden;
   background: var(--night);
 }
@@ -106,7 +105,7 @@ button:disabled { opacity: .45; cursor: default; }
     var(--pink);
 }
 
-.frame { position: relative; }
+.frame { position: relative; flex: none; margin: auto; }
 .frame canvas { display: block; width: 100%; height: 100%; }
 
 .grid {
@@ -147,15 +146,20 @@ button:disabled { opacity: .45; cursor: default; }
   pointer-events: none;
 }
 
-/* ---------- heads-up bar over the picture ---------- */
+/* ---------- heads-up bar: in the empty band above the picture in portrait, over the picture in landscape ---------- */
 
 .hud {
-  position: absolute; top: 0; left: 0; right: 0;
-  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
-  padding: 8px;
+  order: -1; align-self: stretch;
+  display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 4px 3px;
+  padding: 6px 6px 8px;
   font-size: 15px;
 }
+@media (orientation: landscape) {
+  .hud { position: absolute; top: 0; left: 0; right: 0; }
+}
 .hud-spacer { flex: 1; }
+/* the four buttons stay together: all on the first row if they fit, otherwise all on a second row */
+.hud-tools { display: flex; gap: 3px; }
 .hud-item { padding: 1px 6px; color: var(--cream); background: #1d0b1ab0; }
 .hud-item:empty { display: none; }
 .badge {
@@ -165,7 +169,7 @@ button:disabled { opacity: .45; cursor: default; }
   color: var(--cream); background: var(--hot);
 }
 .hud-btn {
-  min-height: 32px; padding: 3px 10px;
+  min-height: 32px; padding: 3px 8px;
   background: var(--cream);
   font-weight: 700; font-size: 15px;
 }
@@ -174,7 +178,7 @@ button:disabled { opacity: .45; cursor: default; }
 /* ---------- connect screen ---------- */
 
 .splash {
-  max-width: 360px; padding: 24px;
+  max-width: 360px; margin: auto; padding: 24px;
   text-align: center;
   user-select: text;
 }
@@ -247,16 +251,17 @@ button:disabled { opacity: .45; cursor: default; }
 }
 .choice.current { background: var(--hot); color: var(--cream); font-weight: 700; }
 
-.actions { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding-bottom: 4px; }
+.actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 2px 4px; }
 @media (orientation: landscape) { .actions { flex-wrap: wrap; justify-content: center; gap: 12px; } }
 
-.focus-pad { display: flex; gap: 2px; }
+/* the pad shrinks on narrow phones so the row never runs off the screen */
+.focus-pad { flex: 1 1 auto; min-width: 0; max-width: 260px; display: flex; gap: 1px; }
 .pad-btn {
-  width: 38px; height: 44px;
+  flex: 1 1 38px; min-width: 0; height: 44px;
   font-size: 24px; font-weight: 700; line-height: 1;
   background: var(--cream);
 }
-.pad-af { width: 48px; font-family: var(--loud); font-size: 11px; background: var(--pink-deep); }
+.pad-af { flex-basis: 48px; font-family: var(--loud); font-size: 11px; background: var(--pink-deep); }
 
 .shutter {
   flex: 0 0 auto;

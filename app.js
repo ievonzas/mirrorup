@@ -219,11 +219,14 @@ function drawPeaking() {
 function layoutFrame() {
   const stage = $('stage').getBoundingClientRect();
   if (!stage.width || !stage.height) return;
+  // In portrait the top bar sits above the picture and takes its own room; in landscape it floats over it.
+  const hud = $('hud');
+  const room = stage.height - (getComputedStyle(hud).position === 'absolute' ? 0 : hud.offsetHeight);
   const ratio = view.width / view.height;
   let w = stage.width;
   let h = w / ratio;
-  if (h > stage.height) {
-    h = stage.height;
+  if (h > room) {
+    h = room;
     w = h * ratio;
   }
   const frame = $('frame');
@@ -600,7 +603,9 @@ $('settingsBtn').addEventListener('click', openSheet);
 $('sheetClose').addEventListener('click', () => { $('sheet').hidden = true; });
 
 window.addEventListener('resize', layoutFrame);
-new ResizeObserver(layoutFrame).observe($('stage'));
+const resizes = new ResizeObserver(layoutFrame);
+resizes.observe($('stage'));
+resizes.observe($('hud'));
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden && camera.connected) holdWakeLock();
 });
