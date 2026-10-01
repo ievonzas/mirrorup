@@ -404,7 +404,12 @@ async function nudgeFocus(code) {
   try {
     await camera.set('manualfocusdrive', steps);
   } catch (e) {
-    toast(`Focus step: ${errText(e)}`);
+    const msg = errText(e);
+    // "Camera could not complete operation" is gphoto2's wording for a Nikon error code. For the focus drive
+    // that is nearly always the lens hitting the end of its travel in that direction.
+    toast(/could not complete/i.test(msg)
+      ? 'The camera refused the focus step. Try the other direction; if that fails too, check the lens switch is on A or M/A and live view AF is not AF-F.'
+      : `Focus step: ${msg}`, 5000);
   }
 }
 

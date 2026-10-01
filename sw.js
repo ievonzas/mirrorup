@@ -2,7 +2,7 @@
    1. Keeps the app shell cached so it opens with no signal (on a hill, in a studio basement).
    2. Adds the cross-origin isolation headers to every response. The gphoto2 WebAssembly build needs
       SharedArrayBuffer, which Chrome only allows on isolated pages, and GitHub Pages can't send these headers itself. */
-const CACHE = 'mirrorup-v4';
+const CACHE = 'mirrorup-v5';
 const SHELL = [
   './', './index.html', './style.css', './app.js', './camera.js', './manifest.webmanifest',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-512-maskable.png', './icons/camera.svg', './icons/heart.svg',

@@ -39,6 +39,7 @@ img { image-rendering: pixelated; }
 html, body {
   margin: 0;
   height: 100%;
+  touch-action: pan-x pan-y;   /* no double-tap or pinch zoom: a second tap on the picture is a second focus, not a zoom */
   background: var(--pink);
   color: var(--ink);
   font: 16px/1.35 var(--body);
@@ -94,6 +95,7 @@ button:disabled { opacity: .45; cursor: default; }
 }
 /* a faint pixel checkerboard behind the picture */
 .app[data-state="live"] .stage {
+  touch-action: none;
   background:
     conic-gradient(#ffffff08 25%, transparent 0 50%, #ffffff08 0 75%, transparent 0) 0 0 / 12px 12px,
     var(--night);
