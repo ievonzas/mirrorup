@@ -279,6 +279,7 @@ function renderHud() {
 
 function renderChips() {
   const box = $('chips');
+  const scroll = box.scrollLeft;
   box.textContent = '';
   for (const quick of QUICK) {
     const cfg = quickConfig(quick);
@@ -296,6 +297,7 @@ function renderChips() {
     });
     box.append(chip);
   }
+  box.scrollLeft = scroll;
 }
 
 function closePicker() {
@@ -347,6 +349,12 @@ function focusIsManual() {
   return !!cfg && /^M/i.test(String(cfg.value));
 }
 
+let markTimer = 0;
+function hideMarkSoon() {
+  clearTimeout(markTimer);
+  markTimer = setTimeout(() => { $('afMark').hidden = true; }, 1200);
+}
+
 async function autofocus() {
   const mark = $('afMark');
   try {
@@ -358,7 +366,7 @@ async function autofocus() {
     toast(`Autofocus: ${errText(e)}`);
     return false;
   } finally {
-    setTimeout(() => { mark.hidden = true; }, 1200);
+    hideMarkSoon();
   }
 }
 
@@ -382,12 +390,12 @@ async function tapToFocus(ev) {
     await camera.set('changeafarea', `${x}x${y}`);
   } catch (e) {
     mark.dataset.result = 'fail';
-    setTimeout(() => { mark.hidden = true; }, 1200);
+    hideMarkSoon();
     toast(`Move focus point: ${errText(e)}`);
     return;
   }
   if (!focusIsManual()) await autofocus();
-  else setTimeout(() => { mark.hidden = true; }, 1200);
+  else hideMarkSoon();
 }
 
 async function nudgeFocus(code) {
@@ -477,9 +485,11 @@ async function openSheet() {
   const body = $('sheetBody');
   body.textContent = '';
   body.append(appSettingsSection());
-  body.append(el('p', { className: 'sheet-note', textContent: 'Reading the camera…' }));
+  const note = el('p', { className: 'sheet-note', textContent: 'Reading the camera…' });
+  body.append(note);
   await refreshConfig();
-  body.lastChild.remove();
+  if (note.parentNode !== body) return;   // the sheet was closed and reopened meanwhile; that call fills it
+  note.remove();
   if (!state.config) return;
   for (const section of Object.values(state.config.children || {})) {
     body.append(renderSection(section));
@@ -561,6 +571,7 @@ function appSettingsSection() {
     leaveLive('Disconnected.');
   });
   details.append(bye);
+  details.append(el('p', { className: 'sheet-note', textContent: 'Mirror Up · Unfortunate Name Studios' }));
   return details;
 }
 
@@ -585,7 +596,9 @@ $('connectBtn').addEventListener('click', connect);
 $('frame').addEventListener('click', tapToFocus);
 $('afBtn').addEventListener('click', () => {
   const mark = $('afMark');
+  if (!mark.style.left) { mark.style.left = '50%'; mark.style.top = '50%'; }   // never tapped: the camera's point is in the middle
   mark.dataset.result = '';
+  mark.hidden = false;
   autofocus();
 });
 for (const btn of document.querySelectorAll('[data-mf]')) {
@@ -616,8 +629,9 @@ if (Camera.supported()) {
 /* ---------- start up ---------- */
 
 async function boot() {
+  const btn = $('connectBtn');
+  btn.disabled = true;   // until the page is ready; a tap before that would fail with a cryptic SharedArrayBuffer error
   if (!Camera.supported()) {
-    $('connectBtn').disabled = true;
     setSplashStatus('This browser has no USB access. Open the page in Chrome on Android (or Chrome on a computer).');
     return;
   }
@@ -640,10 +654,10 @@ async function boot() {
       location.reload();
       return;
     }
-    $('connectBtn').disabled = true;
     setSplashStatus('The page could not switch on cross-origin isolation, which the camera library needs. Try closing the tab and opening it again.');
     return;
   }
   try { sessionStorage.removeItem('mirrorup-reloaded'); } catch {}
+  btn.disabled = false;
 }
 boot();

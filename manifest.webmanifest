@@ -1,7 +1,7 @@
 {
   "name": "Mirror Up",
   "short_name": "Mirror Up",
-  "description": "Live view and remote control for a Nikon DSLR over a USB OTG cable.",
+  "description": "Live view and remote control for a Nikon DSLR over a USB OTG cable. By Unfortunate Name Studios.",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

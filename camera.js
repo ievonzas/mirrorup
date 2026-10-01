@@ -33,6 +33,7 @@ export class Camera {
       modulePromise.catch(() => { modulePromise = null; });
     }
     const Module = await modulePromise;
+    await this.#queue;   // a disconnect may still be closing the previous session
     this.#context = await new Module.Context();
   }
 
