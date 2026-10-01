@@ -1,7 +1,13 @@
 {
   "name": "Mirror Up",
   "short_name": "Mirror Up",
+  "id": "./",
+  "lang": "en",
   "description": "Live view and remote control for a Nikon DSLR over a USB OTG cable. By Unfortunate Name Studios.",
+  "categories": [
+    "photo",
+    "utilities"
+  ],
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
@@ -9,8 +15,39 @@
   "background_color": "#ffc2dc",
   "theme_color": "#ffc2dc",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/live-view.png",
+      "sizes": "1080x2424",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Live view with exposure chips and the focus pad"
+    },
+    {
+      "src": "screenshots/connect.png",
+      "sizes": "1080x2424",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Connect screen"
+    }
   ]
 }

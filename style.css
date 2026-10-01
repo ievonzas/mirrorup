@@ -307,6 +307,8 @@ button:disabled { opacity: .45; cursor: default; }
 .section > summary::marker { color: var(--hot); }
 .section .section { margin-left: 12px; border-bottom: 0; }
 .section > .btn-ghost { margin: 14px 3px 16px; }
+.section .section > summary { font-size: 16px; padding: 8px 0; }
+.sheet a { color: var(--hot-shade); font-weight: 700; }
 .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; }
 .row-label { flex: 1; min-width: 0; }
 .row-value { color: var(--muted); font-size: 14px; }
@@ -340,6 +342,19 @@ button:disabled { opacity: .45; cursor: default; }
 .review img { min-height: 0; flex: 1; max-width: 100%; object-fit: contain; image-rendering: auto; }
 .review-name { margin: 0; font-size: 15px; color: var(--pink); }
 .review-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+/* ---------- plain pages: privacy policy ---------- */
+
+.doc-body { height: auto; overflow-y: auto; user-select: text; }
+.doc { max-width: 560px; margin: 0 auto; padding: 28px 16px 48px; }
+.doc h1 { margin: 10px 0 4px; font-family: var(--loud); font-size: 18px; font-weight: 400; color: var(--hot); text-shadow: 3px 3px 0 var(--ink); }
+.doc h2 { margin: 26px 0 6px; font-size: 19px; }
+.doc p, .doc li { margin: 8px 0; line-height: 1.5; }
+.doc ul { padding-left: 22px; }
+.doc li::marker { color: var(--hot); }
+.doc a { color: var(--hot-shade); font-weight: 700; }
+.doc-sub { color: var(--muted); }
+.doc-foot { margin-top: 36px; }
 
 /* ---------- toast ---------- */
 

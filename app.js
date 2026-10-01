@@ -577,6 +577,27 @@ function appSettingsSection() {
   });
   details.append(bye);
   details.append(el('p', { className: 'sheet-note', textContent: 'Mirror Up · Unfortunate Name Studios' }));
+  details.append(licencesSection());
+  return details;
+}
+
+/* Links open in a new tab so the camera session in this one stays alive. */
+function link(href, text) {
+  return el('a', { href, textContent: text, target: '_blank', rel: 'noopener' });
+}
+
+function licencesSection() {
+  const details = el('details', { className: 'section' }, el('summary', { textContent: 'Licences & privacy' }));
+  const item = (...kids) => el('p', { className: 'sheet-note' }, ...kids);
+  details.append(
+    item(link('privacy.html', 'Privacy policy'), ': the app collects nothing.'),
+    item('Camera access by ', link('https://github.com/GoogleChromeLabs/web-gphoto2', 'web-gphoto2'),
+      ', built from ', link('https://github.com/gphoto/libgphoto2', 'libgphoto2'), ' and ', link('https://libusb.info/', 'libusb'),
+      ', all ', link('https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html', 'LGPL-2.1'), '. The files are unmodified and the licence ships in vendor/web-gphoto2.'),
+    item('Fonts: ', link('fonts/LICENSE-pixelify-sans.txt', 'Pixelify Sans'), ' and ', link('fonts/LICENSE-press-start-2p.txt', 'Press Start 2P'),
+      ', both under the SIL Open Font License.'),
+    item('Mirror Up source: ', link('https://github.com/ievonzas/mirrorup', 'github.com/ievonzas/mirrorup'), '.'),
+  );
   return details;
 }
 

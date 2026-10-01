@@ -60,7 +60,9 @@ If the focus box on the camera lands somewhere other than where you tapped, chan
 
 ## Putting it in an app store
 
-It is a progressive web app, so the route to **Google Play** is a Trusted Web Activity: wrap the hosted URL with [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap) or [PWABuilder](https://www.pwabuilder.com/), publish an `assetlinks.json` on the same host, and add a privacy policy page (the app sends nothing anywhere, which makes that page short). WebUSB works inside a TWA because it is Chrome underneath.
+It is a progressive web app, so the route to **Google Play** is a Trusted Web Activity: wrap the hosted URL with [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap) or [PWABuilder](https://www.pwabuilder.com/) and publish an `assetlinks.json` at the root of the same host (for GitHub Pages that is the `ievonzas.github.io` repo, not this one). WebUSB works inside a TWA because it is Chrome underneath.
+
+The pieces a store listing asks for are already here: `privacy.html` is the privacy policy (the app collects nothing), the manifest carries store screenshots from `screenshots/`, and Menu → This app → Licences & privacy links the LGPL and font licences from inside the app, which the LGPL asks for when the library ships in an app.
 
 The **Apple App Store** is out: iOS has no WebUSB, so the app cannot reach the camera there.
 
